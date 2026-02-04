@@ -1,150 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>SHJI</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>SHJI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<style>
-  * {
-    box-sizing: border-box;
-  }
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
 
-  body {
-    margin: 0;
-    width: 100vw;
-    height: 100vh;
-    background: #000;
-    color: #fff;
-    font-family: monospace;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
+    body {
+      height: 100vh;
+      background: radial-gradient(circle at top, #0f0f0f, #000000);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
 
-  .scanlines {
-    position: fixed;
-    inset: 0;
-    background: repeating-linear-gradient(
-      to bottom,
-      transparent,
-      transparent 2px,
-      rgba(255,255,255,0.03) 2px,
-      rgba(255,255,255,0.03) 4px
-    );
-    pointer-events: none;
-  }
+    .container {
+      text-align: center;
+      background: rgba(20, 20, 20, 0.85);
+      padding: 40px 50px;
+      border-radius: 14px;
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.08);
+      width: 320px;
+    }
 
-  .wrapper {
-    text-align: center;
-    z-index: 2;
-  }
+    h1 {
+      font-size: 36px;
+      letter-spacing: 4px;
+      margin-bottom: 25px;
+    }
 
-  h1 {
-    margin: 0 0 40px;
-    font-size: 4rem;
-    letter-spacing: 0.5em;
-    text-shadow: 0 0 20px red;
-    -webkit-text-stroke: 1px red;
-  }
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      margin-bottom: 18px;
+      text-align: center;
+      background: #111;
+      color: white;
+    }
 
-  .panel {
-    width: 300px;
-    height: 300px;
-    border: 2px solid red;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 16px;
-    padding: 20px;
-    box-shadow: 0 0 25px rgba(255,0,0,0.6);
-    margin: 0 auto;
-  }
+    .buttons {
+      display: flex;
+      gap: 12px;
+    }
 
-  input {
-    background: #000;
-    border: 1px solid red;
-    color: #fff;
-    padding: 12px;
-    font-family: monospace;
-    letter-spacing: 2px;
-    text-align: center;
-    outline: none;
-  }
+    button {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.2s;
+    }
 
-  button {
-    background: #000;
-    border: 2px solid red;
-    color: red;
-    padding: 12px;
-    font-family: monospace;
-    letter-spacing: 4px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
+    .enter {
+      background: white;
+      color: black;
+    }
 
-  button:hover {
-    background: red;
-    color: #000;
-    box-shadow: 0 0 20px red;
-  }
+    .enter:hover {
+      background: #e6e6e6;
+    }
 
-  .msg {
-    font-size: 0.75rem;
-    letter-spacing: 2px;
-    display: none;
-  }
+    .decline {
+      background: #222;
+      color: white;
+    }
 
-  .error {
-    color: red;
-  }
+    .decline:hover {
+      background: #333;
+    }
 
-  .success {
-    color: lime;
-  }
-</style>
+    .error {
+      margin-top: 14px;
+      color: #ff4d4d;
+      font-size: 14px;
+      display: none;
+    }
+  </style>
 </head>
 
 <body>
+  <div class="container">
+    <h1>SHJI</h1>
 
-<div class="scanlines"></div>
+    <input
+      type="password"
+      id="password"
+      placeholder="Enter password"
+    />
 
-<div class="wrapper">
-  <h1>SHJI</h1>
+    <div class="buttons">
+      <button class="enter" onclick="checkPassword()">Enter</button>
+      <button class="decline" onclick="decline()">Decline</button>
+    </div>
 
-  <div class="panel">
-    <input id="password" type="password" placeholder="ACCESS CODE">
-    <div id="error" class="msg error">ACCESS DENIED</div>
-    <div id="success" class="msg success">ACCESS GRANTED</div>
-    <button id="enter">ENTER</button>
+    <div class="error" id="error">Incorrect password</div>
   </div>
-</div>
 
-<script>
-  const input = document.getElementById("password");
-  const button = document.getElementById("enter");
-  const error = document.getElementById("error");
-  const success = document.getElementById("success");
+  <script>
+    const CORRECT_PASSWORD = "unicorn90";
 
-  function check() {
-    if (input.value === "unicorn90") {
-      error.style.display = "none";
-      success.style.display = "block";
-      setTimeout(() => {
-        window.location.href = "framework.html";
-      }, 800);
-    } else {
-      success.style.display = "none";
-      error.style.display = "block";
+    function checkPassword() {
+      const input = document.getElementById("password").value;
+      const error = document.getElementById("error");
+
+      if (input === CORRECT_PASSWORD) {
+        error.style.display = "none";
+        // change this to whatever page you want
+        window.location.href = "home.html";
+      } else {
+        error.style.display = "block";
+      }
     }
-  }
 
-  button.addEventListener("click", check);
-  input.addEventListener("keydown", e => {
-    if (e.key === "Enter") check();
-  });
-</script>
+    function decline() {
+      document.getElementById("password").value = "";
+      document.getElementById("error").style.display = "none";
+    }
 
+    // allow Enter key
+    document.getElementById("password").addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        checkPassword();
+      }
+    });
+  </script>
 </body>
 </html>
