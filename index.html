@@ -1,24 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>SENTINEL</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>SHJI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      color: white;
+      font-family: monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .scanlines {
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent,
+        transparent 2px,
+        rgba(255,255,255,0.03) 2px,
+        rgba(255,255,255,0.03) 4px
+      );
+      pointer-events: none;
+    }
+
+    .container {
+      text-align: center;
+      z-index: 2;
+    }
+
+    h1 {
+      font-size: 4rem;
+      letter-spacing: 0.5em;
+      text-shadow: 0 0 20px red;
+      -webkit-text-stroke: 1px red;
+      margin-bottom: 40px;
+    }
+
+    .panel {
+      width: 280px;
+      height: 280px;
+      border: 2px solid red;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 16px;
+      padding: 20px;
+      box-shadow: 0 0 20px rgba(255,0,0,0.5);
+    }
+
+    input {
+      background: black;
+      border: 1px solid red;
+      color: white;
+      padding: 12px;
+      font-family: monospace;
+      letter-spacing: 2px;
+      outline: none;
+    }
+
+    button {
+      background: black;
+      border: 2px solid red;
+      color: red;
+      padding: 12px;
+      font-family: monospace;
+      letter-spacing: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    button:hover {
+      background: red;
+      color: black;
+      box-shadow: 0 0 20px red;
+    }
+
+    .error {
+      color: red;
+      font-size: 0.75rem;
+      display: none;
+    }
+
+    .status {
+      margin-top: 20px;
+      font-size: 0.7rem;
+      opacity: 0.7;
+      letter-spacing: 2px;
+    }
+  </style>
 </head>
 <body>
 
+  <div class="scanlines"></div>
+
   <div class="container">
-    <h1 class="title">SENTINEL</h1>
-    <p class="subtitle">BY-@AFTERHILLS & @6SHJI</p>
+    <h1>SHJI</h1>
 
     <div class="panel">
-      <input type="password" id="passcode" placeholder="ENTER PASSCODE">
-      <br><br>
-      <button onclick="checkPasscode()">OSINT FRAMEWORK</button>
-      <p id="status"></p>
+      <input id="password" type="password" placeholder="ACCESS CODE" />
+      <span id="error" class="error">ACCESS DENIED</span>
+      <button onclick="enter()">ENTER</button>
     </div>
+
+    <div class="status">SYSTEM READY</div>
   </div>
 
-  <script src="script.js"></script>
-</body>
-</html>
+  <script>
+    function enter() {
+      const input = document.getElementById("password").value;
+      const error = document.getElementById("error");
+
+      if (input === "unicorn90") {
+        error.style.display = "none";
+        window.locatio
