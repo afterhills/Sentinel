@@ -1,122 +1,150 @@
-import { useState } from "react";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SHJI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-const Index = () => {
-  const [password, setPassword] = useState("");
-  const [isHovered, setIsHovered] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
+<style>
+  * {
+    box-sizing: border-box;
+  }
 
-  const handleEnter = () => {
-    // Placeholder - no backend logic
-    console.log("Entering OSINT framework...");
-  };
+  body {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    color: #fff;
+    font-family: monospace;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
 
-  return (
-    <div className="fixed inset-0 flex items-center justify-center bg-background overflow-hidden">
-      {/* Subtle scan line effect */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
-        <div className="w-full h-full bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,hsl(var(--foreground))_2px,hsl(var(--foreground))_4px)]" />
-      </div>
+  .scanlines {
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 2px,
+      rgba(255,255,255,0.03) 2px,
+      rgba(255,255,255,0.03) 4px
+    );
+    pointer-events: none;
+  }
 
-      {/* Main content container */}
-      <div className="flex flex-col items-center gap-10 z-10">
-        {/* Title */}
-        <h1 
-          className="font-mono text-6xl md:text-8xl font-bold tracking-[0.3em] text-foreground select-none"
-          style={{
-            textShadow: `
-              0 0 10px hsl(var(--primary)),
-              0 0 20px hsl(var(--primary) / 0.6),
-              0 0 40px hsl(var(--primary) / 0.4),
-              2px 2px 0 hsl(var(--primary)),
-              -2px -2px 0 hsl(var(--primary))
-            `,
-            WebkitTextStroke: '1px hsl(var(--primary))'
-          }}
-        >
-          SHJI
-        </h1>
+  .wrapper {
+    text-align: center;
+    z-index: 2;
+  }
 
-        {/* Terminal Panel */}
-        <div 
-          className={`
-            relative w-72 md:w-80 aspect-square
-            border-2 border-primary
-            bg-background
-            flex flex-col items-center justify-center gap-6
-            p-8
-            transition-all duration-300 ease-out
-            ${isFocused ? 'shadow-[0_0_30px_hsl(var(--primary)/0.6)]' : 'shadow-[0_0_15px_hsl(var(--primary)/0.3)]'}
-          `}
-        >
-          {/* Corner decorations */}
-          <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-primary" />
-          <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-primary" />
-          <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-primary" />
-          <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-primary" />
+  h1 {
+    margin: 0 0 40px;
+    font-size: 4rem;
+    letter-spacing: 0.5em;
+    text-shadow: 0 0 20px red;
+    -webkit-text-stroke: 1px red;
+  }
 
-          {/* Password Input */}
-          <div className="w-full">
-            <label 
-              className="block text-xs font-mono text-muted-foreground mb-2 tracking-wider uppercase"
-            >
-              Access Code
-            </label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              onFocus={() => setIsFocused(true)}
-              onBlur={() => setIsFocused(false)}
-              onKeyDown={(e) => e.key === 'Enter' && handleEnter()}
-              className="
-                w-full h-12 px-4
-                bg-input border border-primary/50
-                text-foreground font-mono text-sm tracking-wider
-                placeholder:text-muted-foreground/50
-                focus:outline-none focus:border-primary focus:shadow-[0_0_10px_hsl(var(--primary)/0.4)]
-                transition-all duration-200
-              "
-              placeholder="••••••••"
-            />
-          </div>
+  .panel {
+    width: 300px;
+    height: 300px;
+    border: 2px solid red;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+    padding: 20px;
+    box-shadow: 0 0 25px rgba(255,0,0,0.6);
+    margin: 0 auto;
+  }
 
-          {/* Enter Button */}
-          <button
-            onClick={handleEnter}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            className={`
-              w-full h-12 
-              font-mono text-sm font-bold tracking-[0.2em] uppercase
-              border-2 border-primary
-              transition-all duration-200 ease-out
-              ${isHovered 
-                ? 'bg-primary text-primary-foreground shadow-[0_0_25px_hsl(var(--primary)/0.7)]' 
-                : 'bg-transparent text-primary hover:bg-primary/10'
-              }
-            `}
-          >
-            Enter
-          </button>
-        </div>
+  input {
+    background: #000;
+    border: 1px solid red;
+    color: #fff;
+    padding: 12px;
+    font-family: monospace;
+    letter-spacing: 2px;
+    text-align: center;
+    outline: none;
+  }
 
-        {/* Subtle blinking cursor indicator */}
-        <div className="flex items-center gap-2 font-mono text-xs text-muted-foreground">
-          <span className="inline-block w-2 h-4 bg-primary animate-pulse" />
-          <span className="tracking-wider">SYSTEM READY</span>
-        </div>
-      </div>
+  button {
+    background: #000;
+    border: 2px solid red;
+    color: red;
+    padding: 12px;
+    font-family: monospace;
+    letter-spacing: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
 
-      {/* Vignette effect */}
-      <div 
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse at center, transparent 0%, hsl(var(--background)) 100%)',
-          opacity: 0.4
-        }}
-      />
-    </div>
-  );
-};
+  button:hover {
+    background: red;
+    color: #000;
+    box-shadow: 0 0 20px red;
+  }
 
-export default Index;
+  .msg {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    display: none;
+  }
+
+  .error {
+    color: red;
+  }
+
+  .success {
+    color: lime;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="scanlines"></div>
+
+<div class="wrapper">
+  <h1>SHJI</h1>
+
+  <div class="panel">
+    <input id="password" type="password" placeholder="ACCESS CODE">
+    <div id="error" class="msg error">ACCESS DENIED</div>
+    <div id="success" class="msg success">ACCESS GRANTED</div>
+    <button id="enter">ENTER</button>
+  </div>
+</div>
+
+<script>
+  const input = document.getElementById("password");
+  const button = document.getElementById("enter");
+  const error = document.getElementById("error");
+  const success = document.getElementById("success");
+
+  function check() {
+    if (input.value === "unicorn90") {
+      error.style.display = "none";
+      success.style.display = "block";
+      setTimeout(() => {
+        window.location.href = "framework.html";
+      }, 800);
+    } else {
+      success.style.display = "none";
+      error.style.display = "block";
+    }
+  }
+
+  button.addEventListener("click", check);
+  input.addEventListener("keydown", e => {
+    if (e.key === "Enter") check();
+  });
+</script>
+
+</body>
+</html>
