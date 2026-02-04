@@ -6,122 +6,114 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-  body {
-    margin: 0;
-    background: black;
-    color: white;
-    font-family: monospace;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  * {
+    box-sizing: border-box;
   }
 
-  .container {
+  body {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    color: #fff;
+    font-family: monospace;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .scanlines {
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 2px,
+      rgba(255,255,255,0.03) 2px,
+      rgba(255,255,255,0.03) 4px
+    );
+    pointer-events: none;
+  }
+
+  .wrapper {
     text-align: center;
+    z-index: 2;
   }
 
   h1 {
+    margin: 0 0 40px;
     font-size: 4rem;
     letter-spacing: 0.5em;
     text-shadow: 0 0 20px red;
     -webkit-text-stroke: 1px red;
-    margin-bottom: 30px;
   }
 
   .panel {
-    width: 280px;
-    height: 280px;
+    width: 300px;
+    height: 300px;
     border: 2px solid red;
-    padding: 20px;
-    box-shadow: 0 0 20px red;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 15px;
+    gap: 16px;
+    padding: 20px;
+    box-shadow: 0 0 25px rgba(255,0,0,0.6);
+    margin: 0 auto;
   }
 
   input {
-    background: black;
+    background: #000;
     border: 1px solid red;
-    color: white;
+    color: #fff;
     padding: 12px;
     font-family: monospace;
     letter-spacing: 2px;
+    text-align: center;
+    outline: none;
   }
 
   button {
-    background: black;
+    background: #000;
     border: 2px solid red;
     color: red;
     padding: 12px;
-    cursor: pointer;
+    font-family: monospace;
     letter-spacing: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
   }
 
   button:hover {
     background: red;
-    color: black;
+    color: #000;
+    box-shadow: 0 0 20px red;
+  }
+
+  .msg {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    display: none;
   }
 
   .error {
     color: red;
-    display: none;
-    font-size: 0.8rem;
   }
 
   .success {
     color: lime;
-    display: none;
-    font-size: 0.8rem;
   }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="scanlines"></div>
+
+<div class="wrapper">
   <h1>SHJI</h1>
 
   <div class="panel">
     <input id="password" type="password" placeholder="ACCESS CODE">
-    <div id="error" class="error">ACCESS DENIED</div>
-    <div id="success" class="success">ACCESS GRANTED</div>
-    <button id="enterBtn">ENTER</button>
-  </div>
-</div>
-
-<script>
-  const button = document.getElementById("enterBtn");
-  const input = document.getElementById("password");
-  const error = document.getElementById("error");
-  const success = document.getElementById("success");
-
-  function checkPassword() {
-    const value = input.value;
-
-    if (value === "unicorn90") {
-      error.style.display = "none";
-      success.style.display = "block";
-
-      setTimeout(() => {
-        window.location.href = "framework.html";
-      }, 800);
-    } else {
-      success.style.display = "none";
-      error.style.display = "block";
-    }
-  }
-
-  button.addEventListener("click", checkPassword);
-  input.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") checkPassword();
-  });
-</script>
-
-</body>
-</html>
-
-      if (input === "unicorn90") {
-        error.style.display = "none";
-        window.locatio
+    <div id="error" class="msg error">ACCESS DENIED</div>
+    <d
